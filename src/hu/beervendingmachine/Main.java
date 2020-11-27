@@ -8,6 +8,8 @@ public class Main {
         System.out.println("***** Sör automata v1.0 *****");
 
         System.out.println("Válasszon az alábbi sörök közül");
+
+        // A sörök listája
         List<String> sorok = new ArrayList<>
                 (Arrays.asList("Ászok", "Dreher", "Barna", "Ipa", "Szűretlen", "Vörös", "Cseh", "Belga"));
 
@@ -25,6 +27,8 @@ public class Main {
             System.out.println(kodok.get(i) + " " + sorok.get(i) + " " +
                     arak.get(i) + " Forint" + " " + darabszamok.get(i) + " db");
 
+        // A sörök kódjainak és darabszámának bekérése
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Adja meg a kívánt kódot: ");
@@ -32,6 +36,8 @@ public class Main {
 
         System.out.print("Adja meg a kívánt mennyiséget: ");
         int mennyiseg = scanner.nextInt();
+
+        // Itt módosítjuk a darabszámot az indexeléssel
 
         int actualIndex = kod - 1;
 
