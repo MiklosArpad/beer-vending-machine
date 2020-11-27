@@ -11,10 +11,34 @@ public class Main {
         List<String> sorok = new ArrayList<>
                 (Arrays.asList("Ászok", "Dreher", "Barna", "Ipa", "Szűretlen", "Vörös", "Cseh", "Belga"));
 
-        for (String sor : sorok)
-            System.out.println(sor);
+        List<Integer> arak = new ArrayList<>
+                (Arrays.asList(250, 270, 310, 330, 400, 370, 450, 780));
 
-        System.out.println("Adja meg a kívánt mennyiséget!");
+        List<Integer> kodok =
+                new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
 
+        List<Integer> darabszamok =
+                new ArrayList<>(Arrays.asList(100, 100, 100, 100, 100, 100, 100, 100));
+
+        // Sörök kiíratása
+        for (int i = 0; i < 8; i++)
+            System.out.println(kodok.get(i) + " " + sorok.get(i) + " " +
+                    arak.get(i) + " Forint" + " " + darabszamok.get(i) + " db");
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Adja meg a kívánt kódot: ");
+        int kod = scanner.nextInt();
+
+        System.out.print("Adja meg a kívánt mennyiséget: ");
+        int mennyiseg = scanner.nextInt();
+
+        int actualIndex = kod - 1;
+
+        Integer darabszam = darabszamok.get(actualIndex) - mennyiseg;
+        darabszamok.remove(actualIndex);
+        darabszamok.add(actualIndex, darabszam);
+
+        System.out.println("Sör kiadva...");
     }
 }
