@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("***** Sör automata v1.0 *****");
 
-        System.out.println("Válasszon az alábbi sörök közül");
 
         // A sörök listája
         List<String> sorok = new ArrayList<>
@@ -22,44 +21,54 @@ public class Main {
         List<Integer> darabszamok =
                 new ArrayList<>(Arrays.asList(100, 100, 100, 100, 100, 100, 100, 100));
 
-        // Sörök kiíratása
-        for (int i = 0; i < 8; i++)
-            System.out.println(kodok.get(i) + " " + sorok.get(i) + " " +
-                    arak.get(i) + " Forint" + " " + darabszamok.get(i) + " db");
 
-        // A sörök kódjainak és darabszámának bekérése
+        while (true) {
+            System.out.println("Válasszon az alábbi sörök közül:");
 
-        Scanner scanner = new Scanner(System.in);
+            // Sörök kiíratása
+            for (int i = 0; i < 8; i++)
+                System.out.println(kodok.get(i) + " " + sorok.get(i) + " " +
+                        arak.get(i) + " Forint" + " " + darabszamok.get(i) + " db");
 
-        System.out.print("Adja meg a kívánt kódot: ");
-        int kod = scanner.nextInt();
+            // A sörök kódjainak és darabszámának bekérése
 
-        int actualIndex = kod - 1;
+            Scanner scanner = new Scanner(System.in);
 
-        int mennyiseg = 0;
-        int ciklusFutasokSzama = 0;
+            System.out.print("Adja meg a kívánt kódot: ");
+            int kod = scanner.nextInt();
 
-        do {
-            if (ciklusFutasokSzama > 0)
-                System.out.println("Nincs " + mennyiseg + " db sör az automatában!");
+            int actualIndex = kod - 1;
 
-            System.out.print("Adja meg a kívánt mennyiséget: ");
-            mennyiseg = scanner.nextInt();
+            int mennyiseg = 0;
+            int ciklusFutasokSzama = 0;
 
-            ciklusFutasokSzama++;
-        } while (mennyiseg > darabszamok.get(actualIndex));
+            do {
+                if (ciklusFutasokSzama > 0)
+                    System.out.println("Nincs " + mennyiseg + " db sör az automatában!");
 
-        // Itt módosítjuk a darabszámot az indexeléssel
+                System.out.print("Adja meg a kívánt mennyiséget: ");
+                mennyiseg = scanner.nextInt();
 
-        Integer darabszam = darabszamok.get(actualIndex) - mennyiseg;
-        darabszamok.remove(actualIndex);
-        darabszamok.add(actualIndex, darabszam);
+                if (darabszamok.get(actualIndex) == 0) {
+                    System.out.println("Nincs készleten az alábbi sör.");
+                    break;
+                }
 
-        System.out.println("Sör kiadva...");
+                ciklusFutasokSzama++;
+            } while (mennyiseg > darabszamok.get(actualIndex));
 
-        // Végösszeg kiszámolása...
+            // Itt módosítjuk a darabszámot az indexeléssel
 
-        Integer ar = arak.get(actualIndex) * mennyiseg;
-        System.out.println("Végösszeg: " + ar + ".- Ft");
+            Integer darabszam = darabszamok.get(actualIndex) - mennyiseg;
+            darabszamok.remove(actualIndex);
+            darabszamok.add(actualIndex, darabszam);
+
+            System.out.println("Sör kiadva...");
+
+            // Végösszeg kiszámolása...
+            Integer ar = arak.get(actualIndex) * mennyiseg;
+
+            System.out.println("Végösszeg: " + ar + ".- Ft\n");
+        }
     }
 }
