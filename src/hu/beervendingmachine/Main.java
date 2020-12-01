@@ -21,6 +21,7 @@ public class Main {
         List<Integer> darabszamok =
                 new ArrayList<>(Arrays.asList(100, 100, 100, 100, 100, 100, 100, 100));
 
+        Integer ar = 0;
 
         while (true) {
             System.out.println("Válasszon az alábbi sörök közül:");
@@ -66,7 +67,7 @@ public class Main {
             System.out.println("Sör kiadva...");
 
             // Végösszeg kiszámolása...
-            Integer ar = arak.get(actualIndex) * mennyiseg;
+            ar += arak.get(actualIndex) * mennyiseg;
 
             System.out.println("Végösszeg: " + ar + ".- Ft\n");
         }
