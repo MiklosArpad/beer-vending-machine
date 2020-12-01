@@ -34,17 +34,32 @@ public class Main {
         System.out.print("Adja meg a kívánt kódot: ");
         int kod = scanner.nextInt();
 
-        System.out.print("Adja meg a kívánt mennyiséget: ");
-        int mennyiseg = scanner.nextInt();
+        int actualIndex = kod - 1;
+
+        int mennyiseg = 0;
+        int ciklusFutasokSzama = 0;
+
+        do {
+            if (ciklusFutasokSzama > 0)
+                System.out.println("Nincs " + mennyiseg + " db sör az automatában!");
+
+            System.out.print("Adja meg a kívánt mennyiséget: ");
+            mennyiseg = scanner.nextInt();
+
+            ciklusFutasokSzama++;
+        } while (mennyiseg > darabszamok.get(actualIndex));
 
         // Itt módosítjuk a darabszámot az indexeléssel
-
-        int actualIndex = kod - 1;
 
         Integer darabszam = darabszamok.get(actualIndex) - mennyiseg;
         darabszamok.remove(actualIndex);
         darabszamok.add(actualIndex, darabszam);
 
         System.out.println("Sör kiadva...");
+
+        // Végösszeg kiszámolása...
+
+        Integer ar = arak.get(actualIndex) * mennyiseg;
+        System.out.println("Végösszeg: " + ar + ".- Ft");
     }
 }
