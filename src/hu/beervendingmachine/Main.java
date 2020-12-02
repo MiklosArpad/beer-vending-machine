@@ -60,6 +60,7 @@ public class Main {
 
             // Itt módosítjuk a darabszámot az indexeléssel
 
+            Integer darabszamTemp = darabszamok.get(actualIndex);
             Integer darabszam = darabszamok.get(actualIndex) - mennyiseg;
             darabszamok.remove(actualIndex);
             darabszamok.add(actualIndex, darabszam);
@@ -67,7 +68,10 @@ public class Main {
             System.out.println("Sör kiadva...");
 
             // Végösszeg kiszámolása...
-            ar += arak.get(actualIndex) * mennyiseg;
+            if (darabszamTemp == 0)
+                ar += 0;
+            else
+                ar += arak.get(actualIndex) * mennyiseg;
 
             System.out.println("Végösszeg: " + ar + ".- Ft\n");
         }
