@@ -4,22 +4,36 @@ import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    private static void printHeader() {
         System.out.println("***** Sör automata v1.0 *****");
+    }
 
-
-        // A sörök listája
-        List<String> sorok = new ArrayList<>
+    private static ArrayList<String> getBeers() {
+        return new ArrayList<>
                 (Arrays.asList("Ászok", "Dreher", "Barna", "Ipa", "Szűretlen", "Vörös", "Cseh", "Belga"));
+    }
 
-        List<Integer> arak = new ArrayList<>
+    private static ArrayList<Integer> getPrices() {
+        return new ArrayList<>
                 (Arrays.asList(250, 270, 310, 330, 400, 370, 450, 780));
+    }
 
-        List<Integer> kodok =
-                new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
+    private static ArrayList<Integer> getCodes() {
+        return new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
+    }
 
-        List<Integer> darabszamok =
-                new ArrayList<>(Arrays.asList(100, 100, 100, 100, 100, 100, 100, 100));
+    private static ArrayList<Integer> getQuantities() {
+        return new ArrayList<>(Arrays.asList(100, 100, 100, 100, 100, 100, 100, 100));
+    }
+
+    public static void main(String[] args) {
+        printHeader();
+
+        List<String> beers = getBeers();
+        List<Integer> prices = getPrices();
+        List<Integer> codes = getCodes();
+        List<Integer> quantities = getQuantities();
+
 
         Integer ar = 0;
 
@@ -28,8 +42,8 @@ public class Main {
 
             // Sörök kiíratása
             for (int i = 0; i < 8; i++)
-                System.out.println(kodok.get(i) + " " + sorok.get(i) + " " +
-                        arak.get(i) + " Forint" + " " + darabszamok.get(i) + " db");
+                System.out.println(codes.get(i) + " " + beers.get(i) + " " +
+                        prices.get(i) + " Forint" + " " + quantities.get(i) + " db");
 
             // A sörök kódjainak és darabszámának bekérése
 
@@ -50,20 +64,20 @@ public class Main {
                 System.out.print("Adja meg a kívánt mennyiséget: ");
                 mennyiseg = scanner.nextInt();
 
-                if (darabszamok.get(actualIndex) == 0) {
+                if (quantities.get(actualIndex) == 0) {
                     System.out.println("Nincs készleten az alábbi sör.");
                     break;
                 }
 
                 ciklusFutasokSzama++;
-            } while (mennyiseg > darabszamok.get(actualIndex));
+            } while (mennyiseg > quantities.get(actualIndex));
 
             // Itt módosítjuk a darabszámot az indexeléssel
 
-            Integer darabszamTemp = darabszamok.get(actualIndex);
-            Integer darabszam = darabszamok.get(actualIndex) - mennyiseg;
-            darabszamok.remove(actualIndex);
-            darabszamok.add(actualIndex, darabszam);
+            Integer darabszamTemp = quantities.get(actualIndex);
+            Integer darabszam = quantities.get(actualIndex) - mennyiseg;
+            quantities.remove(actualIndex);
+            quantities.add(actualIndex, darabszam);
 
             System.out.println("Sör kiadva...");
 
@@ -71,9 +85,31 @@ public class Main {
             if (darabszamTemp == 0)
                 ar += 0;
             else
-                ar += arak.get(actualIndex) * mennyiseg;
+                ar += calculateTotalPrice(mennyiseg, prices.get(actualIndex));
 
             System.out.println("Végösszeg: " + ar + ".- Ft\n");
         }
+    }
+
+    // Függvény szignatúra (feje), {} -> törzse: ide kerülhet algorimtus
+    // private, default, public, protected -> access modifier (láthatósági módosítani)
+    // static, abstract, final ... -> modifier (módosító)
+    // calculateTotalPrice -> függvény neve
+    // () -> paraméterlista
+    // (int price, int quantity) -> paraméter(ek)
+    // BEST PRACTISE:
+    // ideális állapot: nincs paraméter
+    // 1 paraméter OK!
+    // 2 paraméter még mindig OK!
+    // 3 paraméter na ez már necces!
+    // 4 ... n NA ILYET NE!
+    // SINGLE RESPONSIBILITY PRINCIPLE -> 1 osztály, 1 metódus 1 dolgot csináljon!
+    // boolean típusú paraméter -> GYANÚS (flag)
+
+    private static int calculateTotalPrice(int quantity, int price) {
+        return quantity * price;
+
+        // int total = quantity * price;
+        // return total;
     }
 }
