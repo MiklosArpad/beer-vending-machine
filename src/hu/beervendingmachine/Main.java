@@ -4,10 +4,6 @@ import java.util.*;
 
 public class Main {
 
-    private static void printHeader() {
-        System.out.println("***** Sör automata v1.0 *****");
-    }
-
     private static ArrayList<String> getBeers() {
         return new ArrayList<>
                 (Arrays.asList("Ászok", "Dreher", "Barna", "Ipa", "Szűretlen", "Vörös", "Cseh", "Belga"));
@@ -27,30 +23,28 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        printHeader();
+        Console.printHeader();
 
         List<String> beers = getBeers();
         List<Integer> prices = getPrices();
         List<Integer> codes = getCodes();
         List<Integer> quantities = getQuantities();
 
-
         Integer ar = 0;
 
         while (true) {
-            System.out.println("Válasszon az alábbi sörök közül:");
+            Console.writeLine("Válasszon az alábbi sörök közül:");
 
             // Sörök kiíratása
             for (int i = 0; i < 8; i++)
-                System.out.println(codes.get(i) + " " + beers.get(i) + " " +
+                Console.writeLine(codes.get(i) + " " + beers.get(i) + " " +
                         prices.get(i) + " Forint" + " " + quantities.get(i) + " db");
 
             // A sörök kódjainak és darabszámának bekérése
 
-            Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Adja meg a kívánt kódot: ");
-            int kod = scanner.nextInt();
+            Console.write("Adja meg a kívánt kódot: ");
+            int kod = Console.readInNumber();
 
             int actualIndex = kod - 1;
 
@@ -59,13 +53,13 @@ public class Main {
 
             do {
                 if (ciklusFutasokSzama > 0)
-                    System.out.println("Nincs " + mennyiseg + " db sör az automatában!");
+                    Console.writeLine("Nincs " + mennyiseg + " db sör az automatában!");
 
-                System.out.print("Adja meg a kívánt mennyiséget: ");
-                mennyiseg = scanner.nextInt();
+                Console.write("Adja meg a kívánt mennyiséget: ");
+                mennyiseg = Console.readInNumber();
 
                 if (quantities.get(actualIndex) == 0) {
-                    System.out.println("Nincs készleten az alábbi sör.");
+                    Console.writeLine("Nincs készleten az alábbi sör.");
                     break;
                 }
 
@@ -79,7 +73,7 @@ public class Main {
             quantities.remove(actualIndex);
             quantities.add(actualIndex, darabszam);
 
-            System.out.println("Sör kiadva...");
+            Console.writeLine("Sör kiadva...");
 
             // Végösszeg kiszámolása...
             if (darabszamTemp == 0)
@@ -87,7 +81,7 @@ public class Main {
             else
                 ar += calculateTotalPrice(mennyiseg, prices.get(actualIndex));
 
-            System.out.println("Végösszeg: " + ar + ".- Ft\n");
+            Console.writeLine("Végösszeg: " + ar + ".- Ft\n");
         }
     }
 
