@@ -34,6 +34,42 @@ public class BeerRepository {
                 ));
     }
 
+    public void decrementQuantity(int code, int quantity) {
+        Beer beer = getBeer(code);
+
+        if (beer == null)
+            throw new RuntimeException("");
+
+        beer.decrementQuantity(quantity);
+    }
+
+    public int calculateTotalPrice(int code, int quantity) {
+        Beer beer = getBeer(code);
+
+        if (beer == null)
+            throw new RuntimeException("");
+
+        return beer.calculateTotalPrice(quantity);
+    }
+
+    public int getActualQuantity(int code) {
+        Beer beer = getBeer(code);
+
+        if (beer == null)
+            throw new RuntimeException("");
+
+        return beer.getQuantity();
+    }
+
+    private Beer getBeer(int code) {
+        for (Beer beer : beers) {
+            if (beer.getCode() == code)
+                return beer;
+        }
+
+        return null; // TODO: kivételkezelés
+    }
+
     public List<Beer> getBeers() {
         return beers;
     }

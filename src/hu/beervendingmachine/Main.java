@@ -18,42 +18,34 @@ public class Main {
             }
 
             Console.write("Adja meg a kívánt kódot: ");
-            int kod = Console.readInNumber();
+            int code = Console.readInNumber();
 
-            int actualIndex = kod - 1;
-
-            int mennyiseg = 0;
+            int quantity = 0;
             int ciklusFutasokSzama = 0;
+            int actualBeerQuantity = beerRepository.getActualQuantity(code);
 
             do {
                 if (ciklusFutasokSzama > 0)
-                    Console.writeLine("Nincs " + mennyiseg + " db sör az automatában!");
+                    Console.writeLine("Nincs " + quantity + " db sör az automatában!");
 
                 Console.write("Adja meg a kívánt mennyiséget: ");
-                mennyiseg = Console.readInNumber();
+                quantity = Console.readInNumber();
 
-                if (quantities.get(actualIndex) == 0) {
-                    Console.writeLine("Nincs készleten az alábbi sör.");
-                    break;
+                for (Beer beer : beerRepository.getBeers()) {
+                    if (beer.getCode() == code && beer.getQuantity() == 0) {
+                        Console.writeLine("Nincs készleten az alábbi sör.");
+                        break;
+                    }
                 }
 
                 ciklusFutasokSzama++;
-            } while (mennyiseg > quantities.get(actualIndex));
+            } while (quantity > actualBeerQuantity);
 
-            // Itt módosítjuk a darabszámot az indexeléssel
-
-            Integer darabszamTemp = quantities.get(actualIndex);
-            Integer darabszam = quantities.get(actualIndex) - mennyiseg;
-            quantities.remove(actualIndex); // TODO: decrementQuantity()
-            quantities.add(actualIndex, darabszam);
+            beerRepository.decrementQuantity(code, quantity);
 
             Console.writeLine("Sör kiadva...");
 
-            // Végösszeg kiszámolása...
-            if (darabszamTemp == 0)
-                ar += 0;
-            else
-                ar += calculateTotalPrice(mennyiseg, prices.get(actualIndex));
+            ar += beerRepository.calculateTotalPrice(code, quantity);
 
             Console.writeLine("Végösszeg: " + ar + ".- Ft\n");
         }

@@ -29,6 +29,10 @@ public class Beer {
         return quantity;
     }
 
+    public void decrementQuantity(int quantity) {
+        this.quantity -= quantity;
+    }
+
     // Függvény szignatúra (feje), {} -> törzse: ide kerülhet algorimtus
     // private, default, public, protected -> access modifier (láthatósági módosítani)
     // static, abstract, final ... -> modifier (módosító)
@@ -44,7 +48,7 @@ public class Beer {
     // SINGLE RESPONSIBILITY PRINCIPLE -> 1 osztály, 1 metódus 1 dolgot csináljon!
     // boolean típusú paraméter -> GYANÚS (flag)
 
-    private int calculateTotalPrice() {
+    public int calculateTotalPrice(int quantity) {
         return quantity * price;
 
         // int total = quantity * price;
