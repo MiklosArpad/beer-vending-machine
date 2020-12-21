@@ -1,4 +1,4 @@
-package hu.beervendingmachine;
+package hu.beervendingmachine.util;
 
 // Static dolgok: nem STACK, nem HEAP
 // STATIC/GLOBAL mem. területre pakolódnak ...
@@ -24,9 +24,5 @@ public class Console {
 
     public static int readInNumber() {
         return scanner.nextInt();
-    }
-
-    public static void printHeader() {
-        System.out.println("***** Sör automata v1.0 *****");
     }
 }

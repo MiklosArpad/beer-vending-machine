@@ -1,16 +1,14 @@
-package hu.beervendingmachine;
+package hu.beervendingmachine.model;
 
 public class Beer {
     private int code;
     private String name;
     private int price;
-    private int quantity;
 
-    public Beer(int code, String name, int price, int quantity) {
+    public Beer(int code, String name, int price) {
         this.code = code;
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
     }
 
     public int getCode() {
@@ -23,14 +21,6 @@ public class Beer {
 
     public int getPrice() {
         return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void decrementQuantity(int quantity) {
-        this.quantity -= quantity;
     }
 
     // Függvény szignatúra (feje), {} -> törzse: ide kerülhet algorimtus
@@ -48,10 +38,10 @@ public class Beer {
     // SINGLE RESPONSIBILITY PRINCIPLE -> 1 osztály, 1 metódus 1 dolgot csináljon!
     // boolean típusú paraméter -> GYANÚS (flag)
 
-    public int calculateTotalPrice(int quantity) {
+    /*public int calculateTotalPrice(int quantity) {
         return quantity * price;
 
         // int total = quantity * price;
         // return total;
-    }
+    }*/
 }
