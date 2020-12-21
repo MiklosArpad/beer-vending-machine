@@ -54,13 +54,6 @@ public class VendingMachine {
 
             int requestedQuantity = 0;
             int ciklusFutasokSzama = 0;
-            int actualBeerQuantity = 0;
-
-            try {
-                actualBeerQuantity = getActualQuantity(code);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
 
             do {
                 if (ciklusFutasokSzama > 0)
@@ -77,7 +70,7 @@ public class VendingMachine {
                 }
 
                 ciklusFutasokSzama++;
-            } while (requestedQuantity > actualBeerQuantity);
+            } while (requestedQuantity > getActualBeerQuantity(code));
 
             decrementQuantity(code, requestedQuantity);
 
@@ -118,12 +111,12 @@ public class VendingMachine {
         return 0;
     }
 
-    private int getActualQuantity(int code) throws Exception {
+    private int getActualBeerQuantity(int code) {
         for (Map.Entry<Beer, Integer> entry : beersOnStock.entrySet()) {
             if (entry.getKey().getCode() == code)
                 return entry.getValue();
         }
 
-        throw new Exception("Ismeretlen sör");
+        return 0;
     }
 }
